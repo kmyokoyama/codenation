@@ -1,0 +1,9 @@
+:compileJava
+:processResources NO-SOURCE
+:classes
+:run
+Quantidade de desafios esperados: 14. Encontrados: 14.
+Desafio pronto para ser enviado. Nenhum erro encontrado.
+
+BUILD SUCCESSFUL in 4s
+2 actionable tasks: 2 executed
