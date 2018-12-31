@@ -17,7 +17,7 @@ public class TesteBancoDeTimes {
 	private static BancoDeTimes banco;
 	
 	@Before
-	public void beforeAll() {
+	public void setUp() {
 		banco = BancoDeTimes.getInstance();
 	}
 
@@ -34,7 +34,7 @@ public class TesteBancoDeTimes {
 		
 		banco.adicionarTime(novoTime);
 		
-		Time gotTime = banco.getTimePorID(0L);
+		Time gotTime = banco.getTime(0L);
 		
 		assertEquals(gotTime, novoTime);
 	}
@@ -52,8 +52,8 @@ public class TesteBancoDeTimes {
 		banco.adicionarTime(novoTime);
 		banco.adicionarTime(outroTime);
 		
-		Time gotNovoTime = banco.getTimePorID(0L);
-		Time gotOutroTime = banco.getTimePorID(1L);
+		Time gotNovoTime = banco.getTime(0L);
+		Time gotOutroTime = banco.getTime(1L);
 		
 		assertEquals(gotNovoTime, novoTime);
 		assertEquals(gotOutroTime, outroTime);
@@ -75,6 +75,6 @@ public class TesteBancoDeTimes {
 	
 	@Test(expected = TimeNaoEncontradoException.class)
 	public void testeBuscaPorIDInexistente() {
-		Time gotTime = banco.getTimePorID(0L);
+		banco.getTime(0L);
 	}
 }
