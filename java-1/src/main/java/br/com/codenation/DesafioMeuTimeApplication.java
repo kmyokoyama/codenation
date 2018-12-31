@@ -134,7 +134,17 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 	@Desafio("buscarCorCamisaTimeDeFora")
 	public String buscarCorCamisaTimeDeFora(Long timeDaCasa, Long timeDeFora) {
-		throw new UnsupportedOperationException();
+		BancoDeTimes bancoDeTimes = BancoDeTimes.getInstance();
+		
+		Time timeCasa = bancoDeTimes.getTime(timeDaCasa);
+		Time timeFora = bancoDeTimes.getTime(timeDeFora);
+		
+		
+		if (timeCasa.getCorUniformePrincipal() == timeFora.getCorUniformePrincipal()) {
+			return timeFora.getCorUniformeSecundario();
+		}
+		
+		return timeFora.getCorUniformePrincipal();
 	}
 
 }

@@ -20,11 +20,11 @@ public class BancoDeJogadores {
         }
     }
     
-    private BancoDeJogadores(){
+    private BancoDeJogadores() {
     	this.jogadores = new HashMap<>();
     }
     
-    public static BancoDeJogadores getInstance(){
+    public static BancoDeJogadores getInstance() {
         return instance;
     }
 	
@@ -49,12 +49,14 @@ public class BancoDeJogadores {
 	}
 	
 	public List<Long> buscaTopJogadores(int top) {
+		int numeroDeJogadores = this.jogadores.size();
+		
 		return this.jogadores
 				.entrySet()
 				.stream()
 				.sorted(Map.Entry.comparingByValue((jog1, jog2) -> jog1.comparaNivelHabilidade(jog2)))
 				.map(e -> e.getKey())
-				.limit(top)
+				.skip(numeroDeJogadores >= top ? numeroDeJogadores-top : 0)
 				.collect(Collectors.toList());
 	}
 }

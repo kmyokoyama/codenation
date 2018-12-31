@@ -31,8 +31,16 @@ public class Time {
 		this.corUniformePrincipal = cor;
 	}
 	
+	public String getCorUniformePrincipal() {
+		return this.corUniformePrincipal;
+	}
+	
 	public void setCorUniformeSecundario(String cor) {
 		this.corUniformeSecundario = cor;
+	}
+	
+	public String getCorUniformeSecundario() {
+		return this.corUniformeSecundario;
 	}
 	
 	public Long getID() {

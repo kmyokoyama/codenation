@@ -294,4 +294,31 @@ public class TesteDesafioMeuTimeApplication {
 	public void testeBuscarTopJogadoresVazio() {
 		assertTrue(desafio.buscarTopJogadores(10).isEmpty());
 	}
+	
+	@Test
+	public void testeCamisaDoTimeDeForaDiferentes() {
+		Time timeDaCasa = new Time(0L, "novo time", LocalDate.now());
+		timeDaCasa.setCorUniformePrincipal("Preto");
+		Time timeDeFora = new Time(1L, "outro time", LocalDate.now());
+		timeDeFora.setCorUniformePrincipal("Branco");
+		
+		bancoDeTimes.adicionarTime(timeDaCasa);
+		bancoDeTimes.adicionarTime(timeDeFora);
+		
+		assertEquals("Branco", desafio.buscarCorCamisaTimeDeFora(0L, 1L));
+	}
+	
+	@Test
+	public void testeCamisaDoTimeDeForaIguais() {
+		Time timeDaCasa = new Time(0L, "novo time", LocalDate.now());
+		timeDaCasa.setCorUniformePrincipal("Preto");
+		Time timeDeFora = new Time(1L, "outro time", LocalDate.now());
+		timeDeFora.setCorUniformePrincipal("Preto");
+		timeDeFora.setCorUniformeSecundario("Branco");
+		
+		bancoDeTimes.adicionarTime(timeDaCasa);
+		bancoDeTimes.adicionarTime(timeDeFora);
+		
+		assertEquals("Branco", desafio.buscarCorCamisaTimeDeFora(0L, 1L));
+	}
 }
