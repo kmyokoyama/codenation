@@ -9,25 +9,12 @@ import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
 import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
 
 public class BancoDeTimes {
-	private static BancoDeTimes instance;
 	private Map<Long, Time> times;
-	
-    static{
-        try{
-            instance = new BancoDeTimes();
-        }catch(Exception e){
-            throw new RuntimeException("Não foi possível criar uma instância do banco de times");
-        }
-    }
     
-    private BancoDeTimes(){
+    public BancoDeTimes(){
     	this.times = new HashMap<>();
     }
     
-    public static BancoDeTimes getInstance(){
-        return instance;
-    }
-	
 	public void adicionarTime(Time novoTime) {
 		if (this.times.containsKey(novoTime.getID())) {
 			throw new IdentificadorUtilizadoException();

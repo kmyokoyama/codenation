@@ -8,12 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.codenation.desafio.BancoDeJogadores;
-import br.com.codenation.desafio.BancoDeTimes;
 import br.com.codenation.desafio.Jogador;
 import br.com.codenation.desafio.Time;
 import br.com.codenation.desafio.exceptions.CapitaoNaoInformadoException;
@@ -24,21 +21,10 @@ import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
 public class TesteDesafio {
 
 	private static DesafioMeuTimeApplication desafio;
-	private static BancoDeTimes bancoDeTimes;
-	private static BancoDeJogadores bancoDeJogadores;
 
 	@Before
 	public void setUp() {
 		desafio = new DesafioMeuTimeApplication();
-
-		bancoDeTimes = BancoDeTimes.getInstance();
-		bancoDeJogadores = BancoDeJogadores.getInstance();
-	}
-
-	@After
-	public void tearDown() {
-		bancoDeTimes.limpaTodos();
-		bancoDeJogadores.limpaTodos();
 	}
 
 	@Test(expected = IdentificadorUtilizadoException.class)

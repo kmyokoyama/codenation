@@ -9,23 +9,10 @@ import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
 import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
 
 public class BancoDeJogadores {
-	private static BancoDeJogadores instance;
 	private Map<Long, Jogador> jogadores;
 
-	static {
-		try {
-			instance = new BancoDeJogadores();
-		} catch (Exception e) {
-			throw new RuntimeException("Não foi possível criar uma instância do banco de Jogadores");
-		}
-	}
-
-	private BancoDeJogadores() {
+	public BancoDeJogadores() {
 		this.jogadores = new HashMap<>();
-	}
-
-	public static BancoDeJogadores getInstance() {
-		return instance;
 	}
 
 	public void adicionaJogador(Jogador novoJogador) {

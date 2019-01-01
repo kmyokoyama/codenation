@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,15 +29,6 @@ public class TesteDesafioMeuTimeApplication {
 	@Before
 	public void setUp() {
 		desafio = new DesafioMeuTimeApplication();
-
-		bancoDeTimes = BancoDeTimes.getInstance();
-		bancoDeJogadores = BancoDeJogadores.getInstance();
-	}
-
-	@After
-	public void tearDown() {
-		bancoDeTimes.limpaTodos();
-		bancoDeJogadores.limpaTodos();
 	}
 
 	@Test(expected = IdentificadorUtilizadoException.class)
