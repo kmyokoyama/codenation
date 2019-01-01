@@ -21,7 +21,7 @@ import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
 import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
 import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
 
-public class TesteDesafioMeuTimeApplication {
+public class TesteDesafio {
 
 	private static DesafioMeuTimeApplication desafio;
 	private static BancoDeTimes bancoDeTimes;
@@ -51,11 +51,11 @@ public class TesteDesafioMeuTimeApplication {
 	public void testeIncluirJogadorEmTimeInexistente() {
 		desafio.incluirJogador(0L, 0L, "novo jogador", LocalDate.now(), 90, new BigDecimal(100000));
 	}
-
+	
 	@Test(expected = IdentificadorUtilizadoException.class)
 	public void testeIncluirJogadoresComMesmoID() {
-		bancoDeTimes.adicionarTime(new Time(0L, "novo time", LocalDate.now()));
-		bancoDeTimes.adicionarTime(new Time(1L, "outro time", LocalDate.now()));
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
+		desafio.incluirTime(1L, "outro time", LocalDate.now(), "Preto", "Branco");
 
 		desafio.incluirJogador(0L, 0L, "novo jogador", LocalDate.now(), 90, new BigDecimal(100000));
 		desafio.incluirJogador(0L, 1L, "outro jogador", LocalDate.now(), 80, new BigDecimal(70000));
@@ -63,16 +63,13 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeDefinirCapitao() {
-		Time novoTime = new Time(0L, "novo time", LocalDate.now());
-		bancoDeTimes.adicionarTime(novoTime);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 
 		desafio.incluirJogador(0L, 0L, "novo jogador", LocalDate.now(), 90, new BigDecimal(100000));
 		
 		desafio.definirCapitao(0L);
-		
-		assertEquals(new Long(0), novoTime.getCapitao());
 	}
-	
+
 	@Test(expected = JogadorNaoEncontradoException.class)
 	public void testeDefineCapitaoInexistente() {
 		desafio.definirCapitao(0L);
@@ -80,13 +77,10 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeBuscaCapitao() {
-		Time novoTime = new Time(0L, "novo time", LocalDate.now());
-
-		bancoDeTimes.adicionarTime(novoTime);
-
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 		desafio.incluirJogador(0L, 0L, "novo jogador", LocalDate.now(), 90, new BigDecimal(100000));
 
-		novoTime.setCapitao(0L);
+		desafio.definirCapitao(0L);
 
 		assertEquals(new Long(0), desafio.buscarCapitaoDoTime(0L));
 	}
@@ -98,18 +92,15 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test(expected = CapitaoNaoInformadoException.class)
 	public void testeDefineCapitaoComJogadorInexistente() {
-		Time novoTime = new Time(0L, "novo time", LocalDate.now());
-
-		bancoDeTimes.adicionarTime(novoTime);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 
 		desafio.buscarCapitaoDoTime(0L);
 	}
 
 	@Test
 	public void testeBuscaNomeDoJogador() {
-		Jogador novoJogador = new Jogador(0L, "novo jogador", LocalDate.now());
-
-		bancoDeJogadores.adicionaJogador(novoJogador);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
+		desafio.incluirJogador(0L, 0L, "novo jogador", LocalDate.now(), new Integer(90), new BigDecimal(100000));
 
 		String nomeDoJogador = desafio.buscarNomeJogador(0L);
 
@@ -123,9 +114,7 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeBuscaNomeDoTime() {
-		Time novoTime = new Time(0L, "novo time", LocalDate.now());
-
-		bancoDeTimes.adicionarTime(novoTime);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 
 		String nomeDoTime = desafio.buscarNomeTime(0L);
 
@@ -139,14 +128,13 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeBuscaJogadoresDoTime() {
-		Time novoTime = new Time(0L, "novo time", LocalDate.now());
-		bancoDeTimes.adicionarTime(novoTime);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 
 		List<Long> indices = new ArrayList<>();
 
 		int tamanhoDoTime = 5;
 		for (int i = 0; i < tamanhoDoTime; i++) {
-			novoTime.adicionaJogador(new Jogador(new Long(i), "jogador" + i, LocalDate.now()));
+			desafio.incluirJogador(new Long(i), 0L, "jogador" + i, LocalDate.now(), new Integer(90), new BigDecimal(100000));
 			indices.add(new Long(i));
 		}
 
@@ -164,15 +152,12 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeBuscaMelhorJogadorDoTime() {
-		Time novoTime = new Time(0L, "novo time", LocalDate.now());
-		bancoDeTimes.adicionarTime(novoTime);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 
 		Jogador novoJogador;
 		int tamanhoDoTime = 5;
 		for (int i = 0; i < tamanhoDoTime; i++) {
-			novoJogador = new Jogador(new Long(i), "jogador" + i, LocalDate.now());
-			novoJogador.setNivelHabilidade(100 - 10 * i);
-			novoTime.adicionaJogador(novoJogador);
+			desafio.incluirJogador(new Long(i), 0L, "jogador" + i, LocalDate.now(), new Integer(100 - 10 * i), new BigDecimal(100000));
 		}
 
 		assertEquals(new Long(0), desafio.buscarMelhorJogadorDoTime(0L));
@@ -185,14 +170,13 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeBuscaJogadorMaisVelhoDoTime() {
-		Time novoTime = new Time(0L, "novo time", LocalDate.now());
-		bancoDeTimes.adicionarTime(novoTime);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 
-		novoTime.adicionaJogador(new Jogador(0L, "jogador 1", LocalDate.of(1991, 01, 01)));
-		novoTime.adicionaJogador(new Jogador(1L, "jogador 2", LocalDate.of(1992, 01, 05)));
-		novoTime.adicionaJogador(new Jogador(2L, "jogador 3", LocalDate.of(1993, 10, 01)));
-		novoTime.adicionaJogador(new Jogador(3L, "jogador 4", LocalDate.of(1993, 05, 01)));
-		novoTime.adicionaJogador(new Jogador(4L, "jogador 5", LocalDate.of(1992, 01, 05)));
+		desafio.incluirJogador(0L, 0L, "jogador 1", LocalDate.of(1991, 01, 01), new Integer(100), new BigDecimal(100000));
+		desafio.incluirJogador(1L, 0L, "jogador 2", LocalDate.of(1992, 01, 05), new Integer(100), new BigDecimal(100000));
+		desafio.incluirJogador(2L, 0L, "jogador 3", LocalDate.of(1993, 10, 01), new Integer(100), new BigDecimal(100000));
+		desafio.incluirJogador(3L, 0L, "jogador 4", LocalDate.of(1993, 10, 01), new Integer(100), new BigDecimal(100000));
+		desafio.incluirJogador(4L, 0L, "jogador 5", LocalDate.of(1992, 01, 05), new Integer(100), new BigDecimal(100000));
 
 		assertEquals(new Long(2), desafio.buscarJogadorMaisVelho(0L));
 	}
@@ -209,8 +193,7 @@ public class TesteDesafioMeuTimeApplication {
 		Time novoTime;
 		int numeroTimes = 5;
 		for (int i = 0; i < numeroTimes; i++) {
-			novoTime = new Time(new Long(i), "time" + i, LocalDate.now());
-			bancoDeTimes.adicionarTime(novoTime);
+			desafio.incluirTime(new Long(i), "time" + i, LocalDate.now(), "Branco", "Preto");
 			indices.add(new Long(i));
 		}
 
@@ -228,15 +211,14 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeBuscaJogadorMaiorSalario() {
-		Time novoTime = new Time(0L, "novo time", LocalDate.now());
-		bancoDeTimes.adicionarTime(novoTime);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 
-		Jogador novoJogador;
 		int tamanhoDoTime = 5;
 		for (int i = 0; i < tamanhoDoTime; i++) {
-			novoJogador = new Jogador(new Long(i), "jogador" + i, LocalDate.now());
-			novoJogador.setSalario(new BigDecimal(100000 - 1000 * i));
-			novoTime.adicionaJogador(novoJogador);
+			desafio.incluirJogador(
+				new Long(i), 0L, "jogador" + i, LocalDate.now(),
+				new Integer(100), new BigDecimal(100000 - 1000 * i)
+			);
 		}
 
 		assertEquals(new Long(0), desafio.buscarJogadorMaiorSalario(0L));
@@ -244,21 +226,11 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeBuscaJogadorMaiorSalarioComEmpate() {
-		Time novoTime = new Time(0L, "novo time", LocalDate.now());
-		bancoDeTimes.adicionarTime(novoTime);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 
-		Jogador novoJogador;
-		novoJogador = new Jogador(0L, "jogador 1", LocalDate.now());
-		novoJogador.setSalario(new BigDecimal(100000));
-		novoTime.adicionaJogador(novoJogador);
-
-		novoJogador = new Jogador(1L, "jogador 2", LocalDate.now());
-		novoJogador.setSalario(new BigDecimal(110000));
-		novoTime.adicionaJogador(novoJogador);
-
-		novoJogador = new Jogador(2L, "jogador 3", LocalDate.now());
-		novoJogador.setSalario(new BigDecimal(110000));
-		novoTime.adicionaJogador(novoJogador);
+		desafio.incluirJogador(0L, 0L, "jogador 1", LocalDate.now(), new Integer(100), new BigDecimal(100000));
+		desafio.incluirJogador(1L, 0L, "jogador 2", LocalDate.now(), new Integer(100), new BigDecimal(110000));
+		desafio.incluirJogador(2L, 0L, "jogador 3", LocalDate.now(), new Integer(100), new BigDecimal(110000));
 
 		assertEquals(new Long(1), desafio.buscarJogadorMaiorSalario(0L));
 	}
@@ -270,10 +242,8 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeBuscaSalarioDoJogador() {
-		Jogador novoJogador = new Jogador(0L, "novo jogador", LocalDate.now());
-		novoJogador.setSalario(new BigDecimal(100000));
-
-		bancoDeJogadores.adicionaJogador(novoJogador);
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
+		desafio.incluirJogador(0L, 0L, "novo jogador", LocalDate.now(), new Integer(100), new BigDecimal(100000));
 
 		BigDecimal salarioDoJogador = desafio.buscarSalarioDoJogador(0L);
 
@@ -287,19 +257,12 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeBuscaTopJogadores() {
-		Jogador novoJogador;
-		novoJogador = new Jogador(0L, "jogador 1", LocalDate.now());
-		novoJogador.setNivelHabilidade(100);
-		bancoDeJogadores.adicionaJogador(novoJogador);
-
-		novoJogador = new Jogador(1L, "jogador 2", LocalDate.now());
-		novoJogador.setNivelHabilidade(90);
-		bancoDeJogadores.adicionaJogador(novoJogador);
-
-		novoJogador = new Jogador(2L, "jogador 3", LocalDate.now());
-		novoJogador.setNivelHabilidade(100);
-		bancoDeJogadores.adicionaJogador(novoJogador);
-
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
+		
+		desafio.incluirJogador(0L, 0L, "jogador 1", LocalDate.now(), new Integer(100), new BigDecimal(100000));
+		desafio.incluirJogador(1L, 0L, "jogador 2", LocalDate.now(), new Integer(90), new BigDecimal(100000));
+		desafio.incluirJogador(2L, 0L, "jogador 3", LocalDate.now(), new Integer(100), new BigDecimal(100000));
+		
 		assertEquals(Arrays.asList(0L, 2L), desafio.buscarTopJogadores(2));
 	}
 
@@ -310,28 +273,17 @@ public class TesteDesafioMeuTimeApplication {
 
 	@Test
 	public void testeCamisaDoTimeDeForaDiferentes() {
-		Time timeDaCasa = new Time(0L, "novo time", LocalDate.now());
-		timeDaCasa.setCorUniformePrincipal("Preto");
-		Time timeDeFora = new Time(1L, "outro time", LocalDate.now());
-		timeDeFora.setCorUniformePrincipal("Branco");
-
-		bancoDeTimes.adicionarTime(timeDaCasa);
-		bancoDeTimes.adicionarTime(timeDeFora);
-
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Preto", "Branco");
+		desafio.incluirTime(1L, "outro time", LocalDate.now(), "Branco", "Preto");
+		
 		assertEquals("Branco", desafio.buscarCorCamisaTimeDeFora(0L, 1L));
 	}
 
 	@Test
 	public void testeCamisaDoTimeDeForaIguais() {
-		Time timeDaCasa = new Time(0L, "novo time", LocalDate.now());
-		timeDaCasa.setCorUniformePrincipal("Preto");
-		Time timeDeFora = new Time(1L, "outro time", LocalDate.now());
-		timeDeFora.setCorUniformePrincipal("Preto");
-		timeDeFora.setCorUniformeSecundario("Branco");
-
-		bancoDeTimes.adicionarTime(timeDaCasa);
-		bancoDeTimes.adicionarTime(timeDeFora);
-
+		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Preto", "Branco");
+		desafio.incluirTime(1L, "outro time", LocalDate.now(), "Preto", "Branco");
+		
 		assertEquals("Branco", desafio.buscarCorCamisaTimeDeFora(0L, 1L));
 	}
 }
