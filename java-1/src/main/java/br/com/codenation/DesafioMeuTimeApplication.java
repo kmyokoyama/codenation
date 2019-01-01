@@ -74,21 +74,21 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 	public List<Long> buscarJogadoresDoTime(Long idTime) {
 		Time time = bancoDeTimes.getTime(idTime);
 
-		return time.buscaJogadores();
+		return time.getBuscador().buscaJogadores();
 	}
 
 	@Desafio("buscarMelhorJogadorDoTime")
 	public Long buscarMelhorJogadorDoTime(Long idTime) {
 		Time time = bancoDeTimes.getTime(idTime);
 
-		return time.buscaMelhorJogador();
+		return time.getBuscador().buscaMelhorJogador();
 	}
 
 	@Desafio("buscarJogadorMaisVelho")
 	public Long buscarJogadorMaisVelho(Long idTime) {
 		Time time = bancoDeTimes.getTime(idTime);
 
-		return time.buscaJogadorMaisVelho();
+		return time.getBuscador().buscaJogadorMaisVelho();
 	}
 
 	@Desafio("buscarTimes")
@@ -100,7 +100,7 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 	public Long buscarJogadorMaiorSalario(Long idTime) {
 		Time time = bancoDeTimes.getTime(idTime);
 
-		return time.buscaJogadorMaiorSalario();
+		return time.getBuscador().buscaJogadorMaiorSalario();
 	}
 
 	@Desafio("buscarSalarioDoJogador")

@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.codenation.desafio.BancoDeTimes;
@@ -13,6 +15,16 @@ import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
 
 public class TesteBancoDeTimes {
 	private static BancoDeTimes banco;
+	
+	@Before
+	public void setUp() {
+		banco = new BancoDeTimes();
+	}
+	
+	@After
+	public void tearDown() {
+		banco.limpaTodos();
+	}
 
 	@Test
 	public void testeAdicionaNovoTime() {

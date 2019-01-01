@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.codenation.desafio.BancoDeJogadores;
@@ -14,6 +16,16 @@ import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
 
 public class TesteBancoDeJogadores {
 	private static BancoDeJogadores banco;
+	
+	@Before
+	public void setUp() {
+		banco = new BancoDeJogadores();
+	}
+	
+	@After
+	public void tearDown() {
+		banco.limpaTodos();
+	}
 
 	@Test
 	public void testeAdicionaNovoJogador() {

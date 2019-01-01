@@ -11,8 +11,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.codenation.desafio.Jogador;
-import br.com.codenation.desafio.Time;
 import br.com.codenation.desafio.exceptions.CapitaoNaoInformadoException;
 import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
 import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
@@ -140,7 +138,6 @@ public class TesteDesafio {
 	public void testeBuscaMelhorJogadorDoTime() {
 		desafio.incluirTime(0L, "novo time", LocalDate.now(), "Branco", "Preto");
 
-		Jogador novoJogador;
 		int tamanhoDoTime = 5;
 		for (int i = 0; i < tamanhoDoTime; i++) {
 			desafio.incluirJogador(new Long(i), 0L, "jogador" + i, LocalDate.now(), new Integer(100 - 10 * i), new BigDecimal(100000));
@@ -176,7 +173,6 @@ public class TesteDesafio {
 	public void testeBuscarTimes() {
 		List<Long> indices = new ArrayList<>();
 
-		Time novoTime;
 		int numeroTimes = 5;
 		for (int i = 0; i < numeroTimes; i++) {
 			desafio.incluirTime(new Long(i), "time" + i, LocalDate.now(), "Branco", "Preto");

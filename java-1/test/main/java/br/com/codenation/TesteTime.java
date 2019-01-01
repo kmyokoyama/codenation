@@ -13,7 +13,6 @@ import br.com.codenation.desafio.Time;
 import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
 import br.com.codenation.desafio.exceptions.CapitaoNaoInformadoException;
 import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
-import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
 
 public class TesteTime {
 	@Test(expected = IdentificadorUtilizadoException.class)
@@ -109,7 +108,7 @@ public class TesteTime {
 			indices.add(new Long(i));
 		}
 
-		List<Long> idJogadores = time.buscaJogadores();
+		List<Long> idJogadores = time.getBuscador().buscaJogadores();
 
 		assertEquals(tamanhoDoTime, idJogadores.size());
 
@@ -128,19 +127,19 @@ public class TesteTime {
 			time.adicionaJogador(novoJogador);
 		}
 
-		assertEquals(new Long(0), time.buscaMelhorJogador());
+		assertEquals(new Long(0), time.getBuscador().buscaMelhorJogador());
 	}
 
 	@Test
 	public void testeBuscaJogadorMaisVelhoDoTime() {
 		Time novoTime = new Time(0L, "novo time", LocalDate.now());
 
-		novoTime.adicionaJogador(new Jogador(0L, "jogador 1", LocalDate.of(1991, 01, 01)));
+		novoTime.adicionaJogador(new Jogador(0L, "jogador 1", LocalDate.of(1994, 01, 01)));
 		novoTime.adicionaJogador(new Jogador(1L, "jogador 2", LocalDate.of(1992, 01, 05)));
 		novoTime.adicionaJogador(new Jogador(2L, "jogador 3", LocalDate.of(1993, 10, 01)));
 		novoTime.adicionaJogador(new Jogador(3L, "jogador 4", LocalDate.of(1993, 05, 01)));
 		novoTime.adicionaJogador(new Jogador(4L, "jogador 5", LocalDate.of(1992, 01, 05)));
 
-		assertEquals(new Long(2), novoTime.buscaJogadorMaisVelho());
+		assertEquals(new Long(1), novoTime.getBuscador().buscaJogadorMaisVelho());
 	}
 }
