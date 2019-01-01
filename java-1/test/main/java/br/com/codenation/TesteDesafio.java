@@ -160,8 +160,8 @@ public class TesteDesafio {
 
 		desafio.incluirJogador(0L, 0L, "jogador 1", LocalDate.of(1991, 01, 01), new Integer(100), new BigDecimal(100000));
 		desafio.incluirJogador(1L, 0L, "jogador 2", LocalDate.of(1992, 01, 05), new Integer(100), new BigDecimal(100000));
-		desafio.incluirJogador(2L, 0L, "jogador 3", LocalDate.of(1993, 10, 01), new Integer(100), new BigDecimal(100000));
-		desafio.incluirJogador(3L, 0L, "jogador 4", LocalDate.of(1993, 10, 01), new Integer(100), new BigDecimal(100000));
+		desafio.incluirJogador(2L, 0L, "jogador 3", LocalDate.of(1990, 10, 01), new Integer(100), new BigDecimal(100000));
+		desafio.incluirJogador(3L, 0L, "jogador 4", LocalDate.of(1990, 10, 01), new Integer(100), new BigDecimal(100000));
 		desafio.incluirJogador(4L, 0L, "jogador 5", LocalDate.of(1992, 01, 05), new Integer(100), new BigDecimal(100000));
 
 		assertEquals(new Long(2), desafio.buscarJogadorMaisVelho(0L));

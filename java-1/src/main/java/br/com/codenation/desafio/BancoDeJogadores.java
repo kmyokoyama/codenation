@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparing;
+import static java.util.Map.Entry.comparingByValue;
+
 import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
 import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
 
@@ -35,8 +38,9 @@ public class BancoDeJogadores {
 		int numeroDeJogadores = this.jogadores.size();
 
 		return this.jogadores.entrySet().stream()
-				.sorted(Map.Entry.comparingByValue((jog1, jog2) -> jog1.comparaNivelHabilidade(jog2)))
-				.map(e -> e.getKey()).skip(numeroDeJogadores >= top ? numeroDeJogadores - top : 0)
+				.sorted(comparingByValue(comparing(Jogador::getNivelHabilidade)))
+				.skip(numeroDeJogadores >= top ? numeroDeJogadores - top : 0)
+				.map(e -> e.getKey())
 				.collect(Collectors.toList());
 	}
 

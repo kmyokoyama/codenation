@@ -1,10 +1,14 @@
 package br.com.codenation.desafio;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparing;
+import static java.util.Map.Entry.comparingByValue;
 
 import br.com.codenation.desafio.exceptions.CapitaoNaoInformadoException;
 import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
@@ -79,22 +83,34 @@ public class Time {
 	}
 
 	public List<Long> buscaJogadores() {
-		return this.jogadores.keySet().stream().sorted((o1, o2) -> o1.compareTo(o2)).collect(Collectors.toList());
+		return this.jogadores.keySet().stream().sorted(Long::compareTo).collect(Collectors.toList());
 	}
 
 	public Long buscaMelhorJogador() {
-		return this.jogadores.entrySet().stream().max(Map.Entry
-				.comparingByValue((jog1, jog2) -> jog1.getNivelHabilidade().compareTo(jog2.getNivelHabilidade()))).get()
-				.getKey();
+		return this.jogadores.entrySet().stream()
+				.max(comparingByValue(
+						comparing(Jogador::getNivelHabilidade))
+				)
+				.get().getKey();
 	}
 
 	public Long buscaJogadorMaisVelho() {
 		return this.jogadores.entrySet().stream()
-				.max(Map.Entry.comparingByValue((jog1, jog2) -> jog1.comparaDataNascimento(jog2))).get().getKey();
+				.min(comparingByValue(
+						comparing(Jogador::getDataNascimento)
+						.thenComparing(Comparator.comparing(Jogador::getID))
+					)
+				)
+				.get().getKey();
 	}
 
 	public Long buscaJogadorMaiorSalario() {
 		return this.jogadores.entrySet().stream()
-				.max(Map.Entry.comparingByValue((jog1, jog2) -> jog1.comparaSalario(jog2))).get().getKey();
+				.min(comparingByValue(
+						comparing(Jogador::getSalario).reversed()
+						.thenComparing(Comparator.comparing(Jogador::getID))
+					)
+				)
+				.get().getKey();
 	}
 }

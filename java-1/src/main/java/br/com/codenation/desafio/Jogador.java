@@ -55,28 +55,4 @@ public class Jogador {
 	public LocalDate getDataNascimento() {
 		return this.dataNascimento;
 	}
-
-	public int comparaDataNascimento(Jogador outroJogador) {
-		if (this.dataNascimento == outroJogador.dataNascimento) {
-			return (int) (this.id - outroJogador.id);
-		}
-
-		return this.dataNascimento.compareTo(outroJogador.dataNascimento);
-	}
-
-	public int comparaSalario(Jogador outroJogador) {
-		if (this.salario == outroJogador.salario) {
-			return (int) (this.id - outroJogador.id);
-		}
-
-		return this.salario.compareTo(outroJogador.salario);
-	}
-
-	public int comparaNivelHabilidade(Jogador outroJogador) {
-		if (this.nivelHabilidade == outroJogador.nivelHabilidade) {
-			return (int) (this.id - outroJogador.id);
-		}
-
-		return this.nivelHabilidade.compareTo(outroJogador.nivelHabilidade);
-	}
 }

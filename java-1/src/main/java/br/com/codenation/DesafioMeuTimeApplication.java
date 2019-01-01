@@ -12,9 +12,13 @@ import br.com.codenation.desafio.annotation.Desafio;
 import br.com.codenation.desafio.app.MeuTimeInterface;
 
 public class DesafioMeuTimeApplication implements MeuTimeInterface {
+	BancoDeTimes bancoDeTimes;
+	BancoDeJogadores bancoDeJogadores;
 	
-	BancoDeTimes bancoDeTimes = new BancoDeTimes();
-	BancoDeJogadores bancoDeJogadores = new BancoDeJogadores();
+	public DesafioMeuTimeApplication() {
+		bancoDeTimes = new BancoDeTimes();
+		bancoDeJogadores = new BancoDeJogadores();
+	}
 
 	@Desafio("incluirTime")
 	public void incluirTime(Long id, String nome, LocalDate dataCriacao, String corUniformePrincipal,
