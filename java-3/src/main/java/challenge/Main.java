@@ -24,7 +24,10 @@ public class Main {
 		int result = 0;
 		
 		try {
-			result = (int) streamer.getStream().map(PlayerBean::getNationality).distinct().count();
+			result = (int) streamer.getStream()
+					.map(PlayerBean::getNationality)
+					.distinct()
+					.count();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
