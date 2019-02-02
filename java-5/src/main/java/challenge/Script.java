@@ -15,34 +15,34 @@ public class Script {
 	@Id
 	@GeneratedValue
 	private long id;
-	
+
 	@Column(name = "episode")
 	private int episode;
-	
+
 	@Column(name = "episode_name")
 	private String episodeName;
-	
+
 	@Column(name = "segment")
 	private String segment;
-	
+
 	@Column(name = "type")
 	private String type;
-	
+
 	@Column(name = "actor")
 	private String actor;
-	
+
 	@Column(name = "character")
 	private String character;
-	
+
 	@Column(name = "detail")
 	private String detail;
-	
+
 	@Column(name = "record_date")
 	private Date recordDate;
-	
+
 	@Column(name = "series")
 	private String series;
-	
+
 	@Column(name = "transmission_date")
 	private Date transmissionDate;
 

@@ -5,10 +5,10 @@ public class Quote {
 	private int id;
 	private String actor;
 	private String quote;
-	
+
 	public Quote() {
 	}
-	
+
 	public Quote(int id, String actor, String quote) {
 		this.id = id;
 		this.actor = actor;
@@ -38,6 +38,5 @@ public class Quote {
 	public void setQuote(String quote) {
 		this.quote = quote;
 	}
-	
-	
+
 }

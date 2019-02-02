@@ -20,7 +20,7 @@ public class QuoteController {
 	}
 
 	@GetMapping("quote/{actor}")
-	public @ResponseBody Quote getQuoteByActor(@PathVariable ("actor") String actor) {
+	public @ResponseBody Quote getQuoteByActor(@PathVariable("actor") String actor) {
 		return service.getQuoteByActor(actor);
 	}
 
