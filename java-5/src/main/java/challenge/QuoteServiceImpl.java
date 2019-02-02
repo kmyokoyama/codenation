@@ -17,27 +17,17 @@ public class QuoteServiceImpl implements QuoteService {
 	public Quote getQuote() {
 		Iterable<Script> results = this.repository.findAll();
 		
-		List<Script> resultsList = new ArrayList<>();
-		
-		results.iterator().forEachRemaining(resultsList::add);
-		
-		long numberOfRows = resultsList.size();
-		
-		if (numberOfRows == 0) {
-			return new Quote();
-		}
-		
-		long randomId = this.generateRandom(1, numberOfRows);
-		
-		Script resultScript = resultsList.get((int) randomId);
-		
-		return new Quote((int) resultScript.getId(), resultScript.getActor(), resultScript.getDetail());
+		return this.getRandomQuote(results);
 	}
 
 	@Override
 	public Quote getQuoteByActor(String actor) {
 		Iterable<Script> results = this.repository.findByActor(actor);
 
+		return this.getRandomQuote(results);
+	}
+	
+	private Quote getRandomQuote(Iterable<Script> results) {
 		List<Script> resultsList = new ArrayList<>();
 		
 		results.iterator().forEachRemaining(resultsList::add);
